@@ -1,36 +1,40 @@
 import ply.yacc as yacc
-from lexer import tokens  # Make sure lexer.py defines these tokens
+from lexer import tokens  # Your lexer tokens must be imported
 
-# AST Node class
 class Node:
     def __init__(self, type, children=None, value=None):
         self.type = type
         self.children = children or []
         self.value = value
-
     def __repr__(self):
         return f"{self.type}({self.value})" if self.value else f"{self.type}({self.children})"
 
-# Grammar rules
-# It’s not hardcoded behavior, it’s defined behavior
+precedence = (
+    ('left', 'PLUS', 'MINUS'),
+    ('left', 'MULT', 'DIV'),
+)
+
+# Explicitly set start symbol
+start = 'program'
+
 def p_program(p):
     "program : INT MAIN LPAREN RPAREN LBRACE stmt_list RBRACE"
     p[0] = Node("main", p[6])
 
 def p_stmt_list(p):
-    "stmt_list : stmt_list stmt"
-    p[0] = p[1] + [p[2]]
-
-def p_stmt_list_single(p):
-    "stmt_list : stmt"
-    p[0] = [p[1]]
+    '''stmt_list : stmt
+                 | stmt_list stmt'''
+    if len(p) == 2:
+        p[0] = [p[1]]
+    else:
+        p[0] = p[1] + [p[2]]
 
 def p_stmt_decl(p):
-    "stmt : INT ID EQUALS expr SEMICOLON"
+    "stmt : INT ID ASSIGN expr SEMI"
     p[0] = Node("decl", [Node("id", value=p[2]), p[4]])
 
 def p_stmt_return(p):
-    "stmt : RETURN expr SEMICOLON"
+    "stmt : RETURN expr SEMI"
     p[0] = Node("return", [p[2]])
 
 def p_expr_plus(p):
@@ -52,5 +56,4 @@ def p_expr_id(p):
 def p_error(p):
     print("Syntax error")
 
-# Build the parser
 parser = yacc.yacc()

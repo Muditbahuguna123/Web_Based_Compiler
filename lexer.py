@@ -1,4 +1,4 @@
-import ply.lex as lex
+import ply.lex as lex  
 
 tokens = (
     'ID', 'NUMBER',  # Identifiers (e.g., variable or function names), Numeric literals (e.g., 42, 100)
@@ -7,7 +7,7 @@ tokens = (
     'SEMI',  # Semicolon (;), used to terminate statements    
     'LPAREN', 'RPAREN',  # Parentheses (for grouping expressions or function calls)   
     'LBRACE', 'RBRACE',  # Braces ({}, used to define code blocks)
-    'IF', 'ELSE', 'WHILE', 'RETURN', 'INT'  # Keywords ('if', 'else', 'while', 'return', 'int')
+    'IF', 'ELSE', 'WHILE', 'RETURN', 'INT', 'MAIN'  # Keywords ('if', 'else', 'while', 'return', 'int')
 )
 
 
@@ -17,7 +17,8 @@ reserved = {
     'else': 'ELSE',
     'while': 'WHILE',
     'return': 'RETURN',
-    'int': 'INT'
+    'int': 'INT',
+    'main': 'MAIN'
 }
 
 
