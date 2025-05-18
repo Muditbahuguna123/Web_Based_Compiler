@@ -14,6 +14,9 @@ precedence = (
     ('left', 'MULT', 'DIV'),
 )
 
+symbol_table = {}
+
+
 # Explicitly set start symbol
 start = 'program'
 
@@ -31,6 +34,9 @@ def p_stmt_list(p):
 
 def p_stmt_decl(p):
     "stmt : INT ID ASSIGN expr SEMI"
+    var_name = p[2]
+    # Add to symbol table
+    symbol_table[var_name] = {"type": "int"}
     p[0] = Node("decl", [Node("id", value=p[2]), p[4]])
 
 def p_stmt_return(p):
