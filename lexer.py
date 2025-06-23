@@ -1,5 +1,6 @@
-import ply.lex as lex  
+import ply.lex as lex 
 
+#tuple
 tokens = (
     'ID', 'NUMBER',  # Identifiers (e.g., variable or function names), Numeric literals (e.g., 42, 100)
     'PLUS', 'MINUS', 'MULT', 'DIV',  # Arithmetic operators (+, -, *, /)
@@ -7,10 +8,11 @@ tokens = (
     'SEMI',  # Semicolon (;), used to terminate statements    
     'LPAREN', 'RPAREN',  # Parentheses (for grouping expressions or function calls)   
     'LBRACE', 'RBRACE',  # Braces ({}, used to define code blocks)
-    'IF', 'ELSE', 'WHILE', 'RETURN', 'INT', 'MAIN'  # Keywords ('if', 'else', 'while', 'return', 'int')
+    'IF', 'ELSE', 'WHILE', 'RETURN', 'INT', 'MAIN',  # Keywords ('if', 'else', 'while', 'return', 'int')
+    'EQ', 'NE', 'LT', 'GT', 'LE', 'GE'  # Comparison operators (==, !=, <, >, <=, >=)
 )
 
-
+#dictionary
 #maps the given reserved keyword to the corresponding token
 reserved = {
     'if': 'IF',
@@ -23,6 +25,7 @@ reserved = {
 
 
 #In PLY, t_ stands for "token rule".
+#PLY looks for variables/functions starting with t_.
 #The r stands for "raw string" in Python.
 #r'\+' is a regular expression (regex) that says "look for a plus sign (+)."
 #The backslash (\) is used to escape special characters in regex.
@@ -39,6 +42,14 @@ t_LPAREN  = r'\('
 t_RPAREN  = r'\)'
 t_LBRACE  = r'\{'
 t_RBRACE  = r'\}'
+
+# Comparison operators
+t_EQ      = r'=='
+t_NE      = r'!='
+t_LE      = r'<='
+t_GE      = r'>='
+t_LT      = r'<'
+t_GT      = r'>'
 
 #➡️ When the lexer sees a + in the input code, it will generate a token like:
 #Token(type='PLUS', value='+')

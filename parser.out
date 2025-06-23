@@ -1,0 +1,891 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    DIV
+    MULT
+    WHILE
+
+Grammar
+
+Rule 0     S' -> program
+Rule 1     program -> INT MAIN LPAREN RPAREN LBRACE stmt_list RBRACE
+Rule 2     stmt_list -> stmt
+Rule 3     stmt_list -> stmt_list stmt
+Rule 4     stmt -> INT ID ASSIGN expr SEMI
+Rule 5     stmt -> RETURN expr SEMI
+Rule 6     stmt -> IF LPAREN expr RPAREN LBRACE stmt_list RBRACE
+Rule 7     stmt -> IF LPAREN expr RPAREN LBRACE stmt_list RBRACE ELSE LBRACE stmt_list RBRACE
+Rule 8     expr -> expr PLUS expr
+Rule 9     expr -> expr MINUS expr
+Rule 10    expr -> expr EQ expr
+Rule 11    expr -> expr NE expr
+Rule 12    expr -> expr LT expr
+Rule 13    expr -> expr GT expr
+Rule 14    expr -> expr LE expr
+Rule 15    expr -> expr GE expr
+Rule 16    expr -> NUMBER
+Rule 17    expr -> ID
+
+Terminals, with rules where they appear
+
+ASSIGN               : 4
+DIV                  : 
+ELSE                 : 7
+EQ                   : 10
+GE                   : 15
+GT                   : 13
+ID                   : 4 17
+IF                   : 6 7
+INT                  : 1 4
+LBRACE               : 1 6 7 7
+LE                   : 14
+LPAREN               : 1 6 7
+LT                   : 12
+MAIN                 : 1
+MINUS                : 9
+MULT                 : 
+NE                   : 11
+NUMBER               : 16
+PLUS                 : 8
+RBRACE               : 1 6 7 7
+RETURN               : 5
+RPAREN               : 1 6 7
+SEMI                 : 4 5
+WHILE                : 
+error                : 
+
+Nonterminals, with rules where they appear
+
+expr                 : 4 5 6 7 8 8 9 9 10 10 11 11 12 12 13 13 14 14 15 15
+program              : 0
+stmt                 : 2 3
+stmt_list            : 1 3 6 7 7
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . program
+    (1) program -> . INT MAIN LPAREN RPAREN LBRACE stmt_list RBRACE
+
+    INT             shift and go to state 2
+
+    program                        shift and go to state 1
+
+state 1
+
+    (0) S' -> program .
+
+
+
+state 2
+
+    (1) program -> INT . MAIN LPAREN RPAREN LBRACE stmt_list RBRACE
+
+    MAIN            shift and go to state 3
+
+
+state 3
+
+    (1) program -> INT MAIN . LPAREN RPAREN LBRACE stmt_list RBRACE
+
+    LPAREN          shift and go to state 4
+
+
+state 4
+
+    (1) program -> INT MAIN LPAREN . RPAREN LBRACE stmt_list RBRACE
+
+    RPAREN          shift and go to state 5
+
+
+state 5
+
+    (1) program -> INT MAIN LPAREN RPAREN . LBRACE stmt_list RBRACE
+
+    LBRACE          shift and go to state 6
+
+
+state 6
+
+    (1) program -> INT MAIN LPAREN RPAREN LBRACE . stmt_list RBRACE
+    (2) stmt_list -> . stmt
+    (3) stmt_list -> . stmt_list stmt
+    (4) stmt -> . INT ID ASSIGN expr SEMI
+    (5) stmt -> . RETURN expr SEMI
+    (6) stmt -> . IF LPAREN expr RPAREN LBRACE stmt_list RBRACE
+    (7) stmt -> . IF LPAREN expr RPAREN LBRACE stmt_list RBRACE ELSE LBRACE stmt_list RBRACE
+
+    INT             shift and go to state 7
+    RETURN          shift and go to state 10
+    IF              shift and go to state 11
+
+    stmt_list                      shift and go to state 8
+    stmt                           shift and go to state 9
+
+state 7
+
+    (4) stmt -> INT . ID ASSIGN expr SEMI
+
+    ID              shift and go to state 12
+
+
+state 8
+
+    (1) program -> INT MAIN LPAREN RPAREN LBRACE stmt_list . RBRACE
+    (3) stmt_list -> stmt_list . stmt
+    (4) stmt -> . INT ID ASSIGN expr SEMI
+    (5) stmt -> . RETURN expr SEMI
+    (6) stmt -> . IF LPAREN expr RPAREN LBRACE stmt_list RBRACE
+    (7) stmt -> . IF LPAREN expr RPAREN LBRACE stmt_list RBRACE ELSE LBRACE stmt_list RBRACE
+
+    RBRACE          shift and go to state 13
+    INT             shift and go to state 7
+    RETURN          shift and go to state 10
+    IF              shift and go to state 11
+
+    stmt                           shift and go to state 14
+
+state 9
+
+    (2) stmt_list -> stmt .
+
+    RBRACE          reduce using rule 2 (stmt_list -> stmt .)
+    INT             reduce using rule 2 (stmt_list -> stmt .)
+    RETURN          reduce using rule 2 (stmt_list -> stmt .)
+    IF              reduce using rule 2 (stmt_list -> stmt .)
+
+
+state 10
+
+    (5) stmt -> RETURN . expr SEMI
+    (8) expr -> . expr PLUS expr
+    (9) expr -> . expr MINUS expr
+    (10) expr -> . expr EQ expr
+    (11) expr -> . expr NE expr
+    (12) expr -> . expr LT expr
+    (13) expr -> . expr GT expr
+    (14) expr -> . expr LE expr
+    (15) expr -> . expr GE expr
+    (16) expr -> . NUMBER
+    (17) expr -> . ID
+
+    NUMBER          shift and go to state 16
+    ID              shift and go to state 17
+
+    expr                           shift and go to state 15
+
+state 11
+
+    (6) stmt -> IF . LPAREN expr RPAREN LBRACE stmt_list RBRACE
+    (7) stmt -> IF . LPAREN expr RPAREN LBRACE stmt_list RBRACE ELSE LBRACE stmt_list RBRACE
+
+    LPAREN          shift and go to state 18
+
+
+state 12
+
+    (4) stmt -> INT ID . ASSIGN expr SEMI
+
+    ASSIGN          shift and go to state 19
+
+
+state 13
+
+    (1) program -> INT MAIN LPAREN RPAREN LBRACE stmt_list RBRACE .
+
+    $end            reduce using rule 1 (program -> INT MAIN LPAREN RPAREN LBRACE stmt_list RBRACE .)
+
+
+state 14
+
+    (3) stmt_list -> stmt_list stmt .
+
+    RBRACE          reduce using rule 3 (stmt_list -> stmt_list stmt .)
+    INT             reduce using rule 3 (stmt_list -> stmt_list stmt .)
+    RETURN          reduce using rule 3 (stmt_list -> stmt_list stmt .)
+    IF              reduce using rule 3 (stmt_list -> stmt_list stmt .)
+
+
+state 15
+
+    (5) stmt -> RETURN expr . SEMI
+    (8) expr -> expr . PLUS expr
+    (9) expr -> expr . MINUS expr
+    (10) expr -> expr . EQ expr
+    (11) expr -> expr . NE expr
+    (12) expr -> expr . LT expr
+    (13) expr -> expr . GT expr
+    (14) expr -> expr . LE expr
+    (15) expr -> expr . GE expr
+
+    SEMI            shift and go to state 20
+    PLUS            shift and go to state 21
+    MINUS           shift and go to state 22
+    EQ              shift and go to state 23
+    NE              shift and go to state 24
+    LT              shift and go to state 25
+    GT              shift and go to state 26
+    LE              shift and go to state 27
+    GE              shift and go to state 28
+
+
+state 16
+
+    (16) expr -> NUMBER .
+
+    SEMI            reduce using rule 16 (expr -> NUMBER .)
+    PLUS            reduce using rule 16 (expr -> NUMBER .)
+    MINUS           reduce using rule 16 (expr -> NUMBER .)
+    EQ              reduce using rule 16 (expr -> NUMBER .)
+    NE              reduce using rule 16 (expr -> NUMBER .)
+    LT              reduce using rule 16 (expr -> NUMBER .)
+    GT              reduce using rule 16 (expr -> NUMBER .)
+    LE              reduce using rule 16 (expr -> NUMBER .)
+    GE              reduce using rule 16 (expr -> NUMBER .)
+    RPAREN          reduce using rule 16 (expr -> NUMBER .)
+
+
+state 17
+
+    (17) expr -> ID .
+
+    SEMI            reduce using rule 17 (expr -> ID .)
+    PLUS            reduce using rule 17 (expr -> ID .)
+    MINUS           reduce using rule 17 (expr -> ID .)
+    EQ              reduce using rule 17 (expr -> ID .)
+    NE              reduce using rule 17 (expr -> ID .)
+    LT              reduce using rule 17 (expr -> ID .)
+    GT              reduce using rule 17 (expr -> ID .)
+    LE              reduce using rule 17 (expr -> ID .)
+    GE              reduce using rule 17 (expr -> ID .)
+    RPAREN          reduce using rule 17 (expr -> ID .)
+
+
+state 18
+
+    (6) stmt -> IF LPAREN . expr RPAREN LBRACE stmt_list RBRACE
+    (7) stmt -> IF LPAREN . expr RPAREN LBRACE stmt_list RBRACE ELSE LBRACE stmt_list RBRACE
+    (8) expr -> . expr PLUS expr
+    (9) expr -> . expr MINUS expr
+    (10) expr -> . expr EQ expr
+    (11) expr -> . expr NE expr
+    (12) expr -> . expr LT expr
+    (13) expr -> . expr GT expr
+    (14) expr -> . expr LE expr
+    (15) expr -> . expr GE expr
+    (16) expr -> . NUMBER
+    (17) expr -> . ID
+
+    NUMBER          shift and go to state 16
+    ID              shift and go to state 17
+
+    expr                           shift and go to state 29
+
+state 19
+
+    (4) stmt -> INT ID ASSIGN . expr SEMI
+    (8) expr -> . expr PLUS expr
+    (9) expr -> . expr MINUS expr
+    (10) expr -> . expr EQ expr
+    (11) expr -> . expr NE expr
+    (12) expr -> . expr LT expr
+    (13) expr -> . expr GT expr
+    (14) expr -> . expr LE expr
+    (15) expr -> . expr GE expr
+    (16) expr -> . NUMBER
+    (17) expr -> . ID
+
+    NUMBER          shift and go to state 16
+    ID              shift and go to state 17
+
+    expr                           shift and go to state 30
+
+state 20
+
+    (5) stmt -> RETURN expr SEMI .
+
+    RBRACE          reduce using rule 5 (stmt -> RETURN expr SEMI .)
+    INT             reduce using rule 5 (stmt -> RETURN expr SEMI .)
+    RETURN          reduce using rule 5 (stmt -> RETURN expr SEMI .)
+    IF              reduce using rule 5 (stmt -> RETURN expr SEMI .)
+
+
+state 21
+
+    (8) expr -> expr PLUS . expr
+    (8) expr -> . expr PLUS expr
+    (9) expr -> . expr MINUS expr
+    (10) expr -> . expr EQ expr
+    (11) expr -> . expr NE expr
+    (12) expr -> . expr LT expr
+    (13) expr -> . expr GT expr
+    (14) expr -> . expr LE expr
+    (15) expr -> . expr GE expr
+    (16) expr -> . NUMBER
+    (17) expr -> . ID
+
+    NUMBER          shift and go to state 16
+    ID              shift and go to state 17
+
+    expr                           shift and go to state 31
+
+state 22
+
+    (9) expr -> expr MINUS . expr
+    (8) expr -> . expr PLUS expr
+    (9) expr -> . expr MINUS expr
+    (10) expr -> . expr EQ expr
+    (11) expr -> . expr NE expr
+    (12) expr -> . expr LT expr
+    (13) expr -> . expr GT expr
+    (14) expr -> . expr LE expr
+    (15) expr -> . expr GE expr
+    (16) expr -> . NUMBER
+    (17) expr -> . ID
+
+    NUMBER          shift and go to state 16
+    ID              shift and go to state 17
+
+    expr                           shift and go to state 32
+
+state 23
+
+    (10) expr -> expr EQ . expr
+    (8) expr -> . expr PLUS expr
+    (9) expr -> . expr MINUS expr
+    (10) expr -> . expr EQ expr
+    (11) expr -> . expr NE expr
+    (12) expr -> . expr LT expr
+    (13) expr -> . expr GT expr
+    (14) expr -> . expr LE expr
+    (15) expr -> . expr GE expr
+    (16) expr -> . NUMBER
+    (17) expr -> . ID
+
+    NUMBER          shift and go to state 16
+    ID              shift and go to state 17
+
+    expr                           shift and go to state 33
+
+state 24
+
+    (11) expr -> expr NE . expr
+    (8) expr -> . expr PLUS expr
+    (9) expr -> . expr MINUS expr
+    (10) expr -> . expr EQ expr
+    (11) expr -> . expr NE expr
+    (12) expr -> . expr LT expr
+    (13) expr -> . expr GT expr
+    (14) expr -> . expr LE expr
+    (15) expr -> . expr GE expr
+    (16) expr -> . NUMBER
+    (17) expr -> . ID
+
+    NUMBER          shift and go to state 16
+    ID              shift and go to state 17
+
+    expr                           shift and go to state 34
+
+state 25
+
+    (12) expr -> expr LT . expr
+    (8) expr -> . expr PLUS expr
+    (9) expr -> . expr MINUS expr
+    (10) expr -> . expr EQ expr
+    (11) expr -> . expr NE expr
+    (12) expr -> . expr LT expr
+    (13) expr -> . expr GT expr
+    (14) expr -> . expr LE expr
+    (15) expr -> . expr GE expr
+    (16) expr -> . NUMBER
+    (17) expr -> . ID
+
+    NUMBER          shift and go to state 16
+    ID              shift and go to state 17
+
+    expr                           shift and go to state 35
+
+state 26
+
+    (13) expr -> expr GT . expr
+    (8) expr -> . expr PLUS expr
+    (9) expr -> . expr MINUS expr
+    (10) expr -> . expr EQ expr
+    (11) expr -> . expr NE expr
+    (12) expr -> . expr LT expr
+    (13) expr -> . expr GT expr
+    (14) expr -> . expr LE expr
+    (15) expr -> . expr GE expr
+    (16) expr -> . NUMBER
+    (17) expr -> . ID
+
+    NUMBER          shift and go to state 16
+    ID              shift and go to state 17
+
+    expr                           shift and go to state 36
+
+state 27
+
+    (14) expr -> expr LE . expr
+    (8) expr -> . expr PLUS expr
+    (9) expr -> . expr MINUS expr
+    (10) expr -> . expr EQ expr
+    (11) expr -> . expr NE expr
+    (12) expr -> . expr LT expr
+    (13) expr -> . expr GT expr
+    (14) expr -> . expr LE expr
+    (15) expr -> . expr GE expr
+    (16) expr -> . NUMBER
+    (17) expr -> . ID
+
+    NUMBER          shift and go to state 16
+    ID              shift and go to state 17
+
+    expr                           shift and go to state 37
+
+state 28
+
+    (15) expr -> expr GE . expr
+    (8) expr -> . expr PLUS expr
+    (9) expr -> . expr MINUS expr
+    (10) expr -> . expr EQ expr
+    (11) expr -> . expr NE expr
+    (12) expr -> . expr LT expr
+    (13) expr -> . expr GT expr
+    (14) expr -> . expr LE expr
+    (15) expr -> . expr GE expr
+    (16) expr -> . NUMBER
+    (17) expr -> . ID
+
+    NUMBER          shift and go to state 16
+    ID              shift and go to state 17
+
+    expr                           shift and go to state 38
+
+state 29
+
+    (6) stmt -> IF LPAREN expr . RPAREN LBRACE stmt_list RBRACE
+    (7) stmt -> IF LPAREN expr . RPAREN LBRACE stmt_list RBRACE ELSE LBRACE stmt_list RBRACE
+    (8) expr -> expr . PLUS expr
+    (9) expr -> expr . MINUS expr
+    (10) expr -> expr . EQ expr
+    (11) expr -> expr . NE expr
+    (12) expr -> expr . LT expr
+    (13) expr -> expr . GT expr
+    (14) expr -> expr . LE expr
+    (15) expr -> expr . GE expr
+
+    RPAREN          shift and go to state 39
+    PLUS            shift and go to state 21
+    MINUS           shift and go to state 22
+    EQ              shift and go to state 23
+    NE              shift and go to state 24
+    LT              shift and go to state 25
+    GT              shift and go to state 26
+    LE              shift and go to state 27
+    GE              shift and go to state 28
+
+
+state 30
+
+    (4) stmt -> INT ID ASSIGN expr . SEMI
+    (8) expr -> expr . PLUS expr
+    (9) expr -> expr . MINUS expr
+    (10) expr -> expr . EQ expr
+    (11) expr -> expr . NE expr
+    (12) expr -> expr . LT expr
+    (13) expr -> expr . GT expr
+    (14) expr -> expr . LE expr
+    (15) expr -> expr . GE expr
+
+    SEMI            shift and go to state 40
+    PLUS            shift and go to state 21
+    MINUS           shift and go to state 22
+    EQ              shift and go to state 23
+    NE              shift and go to state 24
+    LT              shift and go to state 25
+    GT              shift and go to state 26
+    LE              shift and go to state 27
+    GE              shift and go to state 28
+
+
+state 31
+
+    (8) expr -> expr PLUS expr .
+    (8) expr -> expr . PLUS expr
+    (9) expr -> expr . MINUS expr
+    (10) expr -> expr . EQ expr
+    (11) expr -> expr . NE expr
+    (12) expr -> expr . LT expr
+    (13) expr -> expr . GT expr
+    (14) expr -> expr . LE expr
+    (15) expr -> expr . GE expr
+
+    SEMI            reduce using rule 8 (expr -> expr PLUS expr .)
+    PLUS            reduce using rule 8 (expr -> expr PLUS expr .)
+    MINUS           reduce using rule 8 (expr -> expr PLUS expr .)
+    EQ              reduce using rule 8 (expr -> expr PLUS expr .)
+    NE              reduce using rule 8 (expr -> expr PLUS expr .)
+    LT              reduce using rule 8 (expr -> expr PLUS expr .)
+    GT              reduce using rule 8 (expr -> expr PLUS expr .)
+    LE              reduce using rule 8 (expr -> expr PLUS expr .)
+    GE              reduce using rule 8 (expr -> expr PLUS expr .)
+    RPAREN          reduce using rule 8 (expr -> expr PLUS expr .)
+
+  ! PLUS            [ shift and go to state 21 ]
+  ! MINUS           [ shift and go to state 22 ]
+  ! EQ              [ shift and go to state 23 ]
+  ! NE              [ shift and go to state 24 ]
+  ! LT              [ shift and go to state 25 ]
+  ! GT              [ shift and go to state 26 ]
+  ! LE              [ shift and go to state 27 ]
+  ! GE              [ shift and go to state 28 ]
+
+
+state 32
+
+    (9) expr -> expr MINUS expr .
+    (8) expr -> expr . PLUS expr
+    (9) expr -> expr . MINUS expr
+    (10) expr -> expr . EQ expr
+    (11) expr -> expr . NE expr
+    (12) expr -> expr . LT expr
+    (13) expr -> expr . GT expr
+    (14) expr -> expr . LE expr
+    (15) expr -> expr . GE expr
+
+    SEMI            reduce using rule 9 (expr -> expr MINUS expr .)
+    PLUS            reduce using rule 9 (expr -> expr MINUS expr .)
+    MINUS           reduce using rule 9 (expr -> expr MINUS expr .)
+    EQ              reduce using rule 9 (expr -> expr MINUS expr .)
+    NE              reduce using rule 9 (expr -> expr MINUS expr .)
+    LT              reduce using rule 9 (expr -> expr MINUS expr .)
+    GT              reduce using rule 9 (expr -> expr MINUS expr .)
+    LE              reduce using rule 9 (expr -> expr MINUS expr .)
+    GE              reduce using rule 9 (expr -> expr MINUS expr .)
+    RPAREN          reduce using rule 9 (expr -> expr MINUS expr .)
+
+  ! PLUS            [ shift and go to state 21 ]
+  ! MINUS           [ shift and go to state 22 ]
+  ! EQ              [ shift and go to state 23 ]
+  ! NE              [ shift and go to state 24 ]
+  ! LT              [ shift and go to state 25 ]
+  ! GT              [ shift and go to state 26 ]
+  ! LE              [ shift and go to state 27 ]
+  ! GE              [ shift and go to state 28 ]
+
+
+state 33
+
+    (10) expr -> expr EQ expr .
+    (8) expr -> expr . PLUS expr
+    (9) expr -> expr . MINUS expr
+    (10) expr -> expr . EQ expr
+    (11) expr -> expr . NE expr
+    (12) expr -> expr . LT expr
+    (13) expr -> expr . GT expr
+    (14) expr -> expr . LE expr
+    (15) expr -> expr . GE expr
+
+    SEMI            reduce using rule 10 (expr -> expr EQ expr .)
+    EQ              reduce using rule 10 (expr -> expr EQ expr .)
+    NE              reduce using rule 10 (expr -> expr EQ expr .)
+    RPAREN          reduce using rule 10 (expr -> expr EQ expr .)
+    PLUS            shift and go to state 21
+    MINUS           shift and go to state 22
+    LT              shift and go to state 25
+    GT              shift and go to state 26
+    LE              shift and go to state 27
+    GE              shift and go to state 28
+
+  ! PLUS            [ reduce using rule 10 (expr -> expr EQ expr .) ]
+  ! MINUS           [ reduce using rule 10 (expr -> expr EQ expr .) ]
+  ! LT              [ reduce using rule 10 (expr -> expr EQ expr .) ]
+  ! GT              [ reduce using rule 10 (expr -> expr EQ expr .) ]
+  ! LE              [ reduce using rule 10 (expr -> expr EQ expr .) ]
+  ! GE              [ reduce using rule 10 (expr -> expr EQ expr .) ]
+  ! EQ              [ shift and go to state 23 ]
+  ! NE              [ shift and go to state 24 ]
+
+
+state 34
+
+    (11) expr -> expr NE expr .
+    (8) expr -> expr . PLUS expr
+    (9) expr -> expr . MINUS expr
+    (10) expr -> expr . EQ expr
+    (11) expr -> expr . NE expr
+    (12) expr -> expr . LT expr
+    (13) expr -> expr . GT expr
+    (14) expr -> expr . LE expr
+    (15) expr -> expr . GE expr
+
+    SEMI            reduce using rule 11 (expr -> expr NE expr .)
+    EQ              reduce using rule 11 (expr -> expr NE expr .)
+    NE              reduce using rule 11 (expr -> expr NE expr .)
+    RPAREN          reduce using rule 11 (expr -> expr NE expr .)
+    PLUS            shift and go to state 21
+    MINUS           shift and go to state 22
+    LT              shift and go to state 25
+    GT              shift and go to state 26
+    LE              shift and go to state 27
+    GE              shift and go to state 28
+
+  ! PLUS            [ reduce using rule 11 (expr -> expr NE expr .) ]
+  ! MINUS           [ reduce using rule 11 (expr -> expr NE expr .) ]
+  ! LT              [ reduce using rule 11 (expr -> expr NE expr .) ]
+  ! GT              [ reduce using rule 11 (expr -> expr NE expr .) ]
+  ! LE              [ reduce using rule 11 (expr -> expr NE expr .) ]
+  ! GE              [ reduce using rule 11 (expr -> expr NE expr .) ]
+  ! EQ              [ shift and go to state 23 ]
+  ! NE              [ shift and go to state 24 ]
+
+
+state 35
+
+    (12) expr -> expr LT expr .
+    (8) expr -> expr . PLUS expr
+    (9) expr -> expr . MINUS expr
+    (10) expr -> expr . EQ expr
+    (11) expr -> expr . NE expr
+    (12) expr -> expr . LT expr
+    (13) expr -> expr . GT expr
+    (14) expr -> expr . LE expr
+    (15) expr -> expr . GE expr
+
+    SEMI            reduce using rule 12 (expr -> expr LT expr .)
+    EQ              reduce using rule 12 (expr -> expr LT expr .)
+    NE              reduce using rule 12 (expr -> expr LT expr .)
+    LT              reduce using rule 12 (expr -> expr LT expr .)
+    GT              reduce using rule 12 (expr -> expr LT expr .)
+    LE              reduce using rule 12 (expr -> expr LT expr .)
+    GE              reduce using rule 12 (expr -> expr LT expr .)
+    RPAREN          reduce using rule 12 (expr -> expr LT expr .)
+    PLUS            shift and go to state 21
+    MINUS           shift and go to state 22
+
+  ! PLUS            [ reduce using rule 12 (expr -> expr LT expr .) ]
+  ! MINUS           [ reduce using rule 12 (expr -> expr LT expr .) ]
+  ! EQ              [ shift and go to state 23 ]
+  ! NE              [ shift and go to state 24 ]
+  ! LT              [ shift and go to state 25 ]
+  ! GT              [ shift and go to state 26 ]
+  ! LE              [ shift and go to state 27 ]
+  ! GE              [ shift and go to state 28 ]
+
+
+state 36
+
+    (13) expr -> expr GT expr .
+    (8) expr -> expr . PLUS expr
+    (9) expr -> expr . MINUS expr
+    (10) expr -> expr . EQ expr
+    (11) expr -> expr . NE expr
+    (12) expr -> expr . LT expr
+    (13) expr -> expr . GT expr
+    (14) expr -> expr . LE expr
+    (15) expr -> expr . GE expr
+
+    SEMI            reduce using rule 13 (expr -> expr GT expr .)
+    EQ              reduce using rule 13 (expr -> expr GT expr .)
+    NE              reduce using rule 13 (expr -> expr GT expr .)
+    LT              reduce using rule 13 (expr -> expr GT expr .)
+    GT              reduce using rule 13 (expr -> expr GT expr .)
+    LE              reduce using rule 13 (expr -> expr GT expr .)
+    GE              reduce using rule 13 (expr -> expr GT expr .)
+    RPAREN          reduce using rule 13 (expr -> expr GT expr .)
+    PLUS            shift and go to state 21
+    MINUS           shift and go to state 22
+
+  ! PLUS            [ reduce using rule 13 (expr -> expr GT expr .) ]
+  ! MINUS           [ reduce using rule 13 (expr -> expr GT expr .) ]
+  ! EQ              [ shift and go to state 23 ]
+  ! NE              [ shift and go to state 24 ]
+  ! LT              [ shift and go to state 25 ]
+  ! GT              [ shift and go to state 26 ]
+  ! LE              [ shift and go to state 27 ]
+  ! GE              [ shift and go to state 28 ]
+
+
+state 37
+
+    (14) expr -> expr LE expr .
+    (8) expr -> expr . PLUS expr
+    (9) expr -> expr . MINUS expr
+    (10) expr -> expr . EQ expr
+    (11) expr -> expr . NE expr
+    (12) expr -> expr . LT expr
+    (13) expr -> expr . GT expr
+    (14) expr -> expr . LE expr
+    (15) expr -> expr . GE expr
+
+    SEMI            reduce using rule 14 (expr -> expr LE expr .)
+    EQ              reduce using rule 14 (expr -> expr LE expr .)
+    NE              reduce using rule 14 (expr -> expr LE expr .)
+    LT              reduce using rule 14 (expr -> expr LE expr .)
+    GT              reduce using rule 14 (expr -> expr LE expr .)
+    LE              reduce using rule 14 (expr -> expr LE expr .)
+    GE              reduce using rule 14 (expr -> expr LE expr .)
+    RPAREN          reduce using rule 14 (expr -> expr LE expr .)
+    PLUS            shift and go to state 21
+    MINUS           shift and go to state 22
+
+  ! PLUS            [ reduce using rule 14 (expr -> expr LE expr .) ]
+  ! MINUS           [ reduce using rule 14 (expr -> expr LE expr .) ]
+  ! EQ              [ shift and go to state 23 ]
+  ! NE              [ shift and go to state 24 ]
+  ! LT              [ shift and go to state 25 ]
+  ! GT              [ shift and go to state 26 ]
+  ! LE              [ shift and go to state 27 ]
+  ! GE              [ shift and go to state 28 ]
+
+
+state 38
+
+    (15) expr -> expr GE expr .
+    (8) expr -> expr . PLUS expr
+    (9) expr -> expr . MINUS expr
+    (10) expr -> expr . EQ expr
+    (11) expr -> expr . NE expr
+    (12) expr -> expr . LT expr
+    (13) expr -> expr . GT expr
+    (14) expr -> expr . LE expr
+    (15) expr -> expr . GE expr
+
+    SEMI            reduce using rule 15 (expr -> expr GE expr .)
+    EQ              reduce using rule 15 (expr -> expr GE expr .)
+    NE              reduce using rule 15 (expr -> expr GE expr .)
+    LT              reduce using rule 15 (expr -> expr GE expr .)
+    GT              reduce using rule 15 (expr -> expr GE expr .)
+    LE              reduce using rule 15 (expr -> expr GE expr .)
+    GE              reduce using rule 15 (expr -> expr GE expr .)
+    RPAREN          reduce using rule 15 (expr -> expr GE expr .)
+    PLUS            shift and go to state 21
+    MINUS           shift and go to state 22
+
+  ! PLUS            [ reduce using rule 15 (expr -> expr GE expr .) ]
+  ! MINUS           [ reduce using rule 15 (expr -> expr GE expr .) ]
+  ! EQ              [ shift and go to state 23 ]
+  ! NE              [ shift and go to state 24 ]
+  ! LT              [ shift and go to state 25 ]
+  ! GT              [ shift and go to state 26 ]
+  ! LE              [ shift and go to state 27 ]
+  ! GE              [ shift and go to state 28 ]
+
+
+state 39
+
+    (6) stmt -> IF LPAREN expr RPAREN . LBRACE stmt_list RBRACE
+    (7) stmt -> IF LPAREN expr RPAREN . LBRACE stmt_list RBRACE ELSE LBRACE stmt_list RBRACE
+
+    LBRACE          shift and go to state 41
+
+
+state 40
+
+    (4) stmt -> INT ID ASSIGN expr SEMI .
+
+    RBRACE          reduce using rule 4 (stmt -> INT ID ASSIGN expr SEMI .)
+    INT             reduce using rule 4 (stmt -> INT ID ASSIGN expr SEMI .)
+    RETURN          reduce using rule 4 (stmt -> INT ID ASSIGN expr SEMI .)
+    IF              reduce using rule 4 (stmt -> INT ID ASSIGN expr SEMI .)
+
+
+state 41
+
+    (6) stmt -> IF LPAREN expr RPAREN LBRACE . stmt_list RBRACE
+    (7) stmt -> IF LPAREN expr RPAREN LBRACE . stmt_list RBRACE ELSE LBRACE stmt_list RBRACE
+    (2) stmt_list -> . stmt
+    (3) stmt_list -> . stmt_list stmt
+    (4) stmt -> . INT ID ASSIGN expr SEMI
+    (5) stmt -> . RETURN expr SEMI
+    (6) stmt -> . IF LPAREN expr RPAREN LBRACE stmt_list RBRACE
+    (7) stmt -> . IF LPAREN expr RPAREN LBRACE stmt_list RBRACE ELSE LBRACE stmt_list RBRACE
+
+    INT             shift and go to state 7
+    RETURN          shift and go to state 10
+    IF              shift and go to state 11
+
+    stmt_list                      shift and go to state 42
+    stmt                           shift and go to state 9
+
+state 42
+
+    (6) stmt -> IF LPAREN expr RPAREN LBRACE stmt_list . RBRACE
+    (7) stmt -> IF LPAREN expr RPAREN LBRACE stmt_list . RBRACE ELSE LBRACE stmt_list RBRACE
+    (3) stmt_list -> stmt_list . stmt
+    (4) stmt -> . INT ID ASSIGN expr SEMI
+    (5) stmt -> . RETURN expr SEMI
+    (6) stmt -> . IF LPAREN expr RPAREN LBRACE stmt_list RBRACE
+    (7) stmt -> . IF LPAREN expr RPAREN LBRACE stmt_list RBRACE ELSE LBRACE stmt_list RBRACE
+
+    RBRACE          shift and go to state 43
+    INT             shift and go to state 7
+    RETURN          shift and go to state 10
+    IF              shift and go to state 11
+
+    stmt                           shift and go to state 14
+
+state 43
+
+    (6) stmt -> IF LPAREN expr RPAREN LBRACE stmt_list RBRACE .
+    (7) stmt -> IF LPAREN expr RPAREN LBRACE stmt_list RBRACE . ELSE LBRACE stmt_list RBRACE
+
+    RBRACE          reduce using rule 6 (stmt -> IF LPAREN expr RPAREN LBRACE stmt_list RBRACE .)
+    INT             reduce using rule 6 (stmt -> IF LPAREN expr RPAREN LBRACE stmt_list RBRACE .)
+    RETURN          reduce using rule 6 (stmt -> IF LPAREN expr RPAREN LBRACE stmt_list RBRACE .)
+    IF              reduce using rule 6 (stmt -> IF LPAREN expr RPAREN LBRACE stmt_list RBRACE .)
+    ELSE            shift and go to state 44
+
+
+state 44
+
+    (7) stmt -> IF LPAREN expr RPAREN LBRACE stmt_list RBRACE ELSE . LBRACE stmt_list RBRACE
+
+    LBRACE          shift and go to state 45
+
+
+state 45
+
+    (7) stmt -> IF LPAREN expr RPAREN LBRACE stmt_list RBRACE ELSE LBRACE . stmt_list RBRACE
+    (2) stmt_list -> . stmt
+    (3) stmt_list -> . stmt_list stmt
+    (4) stmt -> . INT ID ASSIGN expr SEMI
+    (5) stmt -> . RETURN expr SEMI
+    (6) stmt -> . IF LPAREN expr RPAREN LBRACE stmt_list RBRACE
+    (7) stmt -> . IF LPAREN expr RPAREN LBRACE stmt_list RBRACE ELSE LBRACE stmt_list RBRACE
+
+    INT             shift and go to state 7
+    RETURN          shift and go to state 10
+    IF              shift and go to state 11
+
+    stmt_list                      shift and go to state 46
+    stmt                           shift and go to state 9
+
+state 46
+
+    (7) stmt -> IF LPAREN expr RPAREN LBRACE stmt_list RBRACE ELSE LBRACE stmt_list . RBRACE
+    (3) stmt_list -> stmt_list . stmt
+    (4) stmt -> . INT ID ASSIGN expr SEMI
+    (5) stmt -> . RETURN expr SEMI
+    (6) stmt -> . IF LPAREN expr RPAREN LBRACE stmt_list RBRACE
+    (7) stmt -> . IF LPAREN expr RPAREN LBRACE stmt_list RBRACE ELSE LBRACE stmt_list RBRACE
+
+    RBRACE          shift and go to state 47
+    INT             shift and go to state 7
+    RETURN          shift and go to state 10
+    IF              shift and go to state 11
+
+    stmt                           shift and go to state 14
+
+state 47
+
+    (7) stmt -> IF LPAREN expr RPAREN LBRACE stmt_list RBRACE ELSE LBRACE stmt_list RBRACE .
+
+    RBRACE          reduce using rule 7 (stmt -> IF LPAREN expr RPAREN LBRACE stmt_list RBRACE ELSE LBRACE stmt_list RBRACE .)
+    INT             reduce using rule 7 (stmt -> IF LPAREN expr RPAREN LBRACE stmt_list RBRACE ELSE LBRACE stmt_list RBRACE .)
+    RETURN          reduce using rule 7 (stmt -> IF LPAREN expr RPAREN LBRACE stmt_list RBRACE ELSE LBRACE stmt_list RBRACE .)
+    IF              reduce using rule 7 (stmt -> IF LPAREN expr RPAREN LBRACE stmt_list RBRACE ELSE LBRACE stmt_list RBRACE .)
+
